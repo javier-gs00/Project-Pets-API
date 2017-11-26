@@ -1,0 +1,17 @@
+{
+  "name": "bazardemascotas",
+  "version": "0.1.0",
+  "description": "front & back-end of the website",
+  "main": "server.js",
+  "author": "javier gutierrez",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.4",
+    "validator": "^9.1.2"
+  }
+}
