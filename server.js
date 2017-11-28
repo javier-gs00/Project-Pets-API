@@ -5,7 +5,10 @@ const mongoose = require('mongoose');
 const app = express();
 require('dotenv').config();
 
-//MongoDB setup
+// Set global var
+global.__rootDir = __dirname;
+
+// MongoDB setup
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DB_HOST, {
     useMongoClient: true
