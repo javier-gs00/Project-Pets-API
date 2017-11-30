@@ -2,7 +2,7 @@ const xray = require('x-ray');
 
 let x  = xray().delay(1000);
 
-exports.webScraper = () => {
+module.exports = () => {
     return new Promise ((resolve, reject) => {
         // Init scraper
         x(
@@ -10,16 +10,20 @@ exports.webScraper = () => {
             'div.product',
             [{
                 name: '.product-title a@html',
-                link: 'a@href',
+                href: 'a@href',
                 price: 'span.woocommerce-Price-amount',
-                image: 'img@src'
+                imageHref: 'img@src'
             }]
         )
         .paginate('.next.page-numbers@href') // Next page button .css classes
         .limit(3) // Pages to crawl limit
         ((err, data) => {
-            if (err) reject(err)
-            resolve(data)
+            if (err) {
+                console.log('Error fron Noi medicine web scraper...');
+                reject(err)
+            } else {
+                resolve(data)
+            }
         })
     })
 }

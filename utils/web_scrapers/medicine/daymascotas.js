@@ -28,16 +28,16 @@ module.exports = () => {
             '.show-links-onimage',
             [{
                 name: 'h2 | rmVisitanos | rmLlamanos | rmEscribenos | rmHorarios',
-                link: 'a@href',
+                href: 'a@href',
                 price: '.price | trunk',
-                image: 'img@src'  
+                imageHref: 'img@src'  
             }]
         )
         .paginate('.next.page-numbers@href') // Next page button .css classes
         .limit(6) // Pages to crawl limit
         ((err, data) => {
             if (err) {
-                console.log('Error fron scraper...');
+                console.log('Error fron Day Mascotas medicine web scraper...');
                 reject(err)
             } else {
                 resolve(data)

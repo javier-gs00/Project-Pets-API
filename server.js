@@ -19,11 +19,16 @@ db.on('error', console.error.bind(console, 'db connection error: '));
 app.use('/api', routes);
 
 // Catch 404 and forward to error handler
-app.use((req, res, next) => {
-    let err = new Error('Not found');
-    err.status = 404;
-    res.send("Error 404: File not found...")
-    next(err);
+// app.use((req, res, next) => {
+//     let err = new Error('Not found');
+//     err.status = 404;
+//     res.send("Error 404: File not found...")
+//     next(err);
+// })
+//Basic error-handling middleware
+app.use((err, req, res, next) => {
+    console.log(err);
+    res.status(500).send(err.response || 'Somethin broke :(...');
 })
 
 app.listen(process.env.PORT, () => {

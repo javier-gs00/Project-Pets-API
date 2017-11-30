@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const search = require('./search/search');
-const webSrapers = require('./web_scrapers/web_scrapers');
+
+const product = require('./product/product_controller')
+const webScrapers = require('./web_scrapers/web_scrapers_controller')
 
 router.get('/', (req, res) => {
     res.send('Hello World');
@@ -8,6 +10,8 @@ router.get('/', (req, res) => {
 
 router.get('/search', search);
 
-router.get('/webscrapers', webSrapers);
+router.use('/product', product);
+
+router.use('/webscrapers', webScrapers)
 
 module.exports = router;
