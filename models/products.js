@@ -1,3 +1,5 @@
+const path = require('path');
+const fs = require('fs');
 const mongoose = require('mongoose');
 const ProductSchema = new mongoose.Schema({
     name: String,
@@ -94,6 +96,51 @@ exports.saveMany = (data, storeName, category) => {
         });
     });
 };
+
+// Delete all products from a store specified category
+// Categories are food, medicine or accesories
+exports.deleteMany = (storeName, categoryName) => {
+    return new Promise ((resolve, reject) => {
+        console.log('check function');
+        if (categoryName.match(/^(food|medicine|accesory)$/)) {
+            ProductModel.deleteMany({ category: categoryName, store: storeName }, (err, result) => {
+                // result is DeleteWriteOpResultObject wich contains the deleted count
+                resolve(result);
+                reject(err);
+            });
+        } else {
+            let err = new Error("Err: Product.deleteMany.categoryName doesn't match..." );
+            reject(err) 
+        }
+        // if (categoryName === 'food') {
+
+        // } else if (categoryName === 'medicine') {
+        //     ProductModel.deleteMany({ category: categoryName, store: storeName }, (err, result) => {
+        //         // result is DeleteWriteOpResultObject wich contains the deleted count
+        //         resolve(result);
+        //         reject(err);
+        //     })
+        // } else if (categoryName === 'accesory') {
+
+        // } else {
+        //     let err = new Error("Err: Product.deleteMany.categoryName doesn't match..." );
+        //     reject(err) 
+        // }
+    });
+};
+
+// Backup Product Collection to a JSON file in the root directory
+exports.backupCollection = (callback) => {
+    ProductModel.find().exec((err, products) => {
+        let backupJSON = JSON.stringify(products, null, '\t');
+        let location = global.__rootDir + '/backupJSON/products.json';
+        location = path.normalize(location);
+        fs.writeFile(location, backupJSON, (err) => {
+            let msg = 'Product Collection JSON backup created at: ' + location;
+            callback(err, msg);
+        })
+    });
+}
 
 // Check that the scraped data contains vaules for name, price and href
 function checkData (data) {

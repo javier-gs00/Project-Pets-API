@@ -2,7 +2,7 @@ const router = require('express').Router();
 const mongoose = require('mongoose');
 const Product = require('../../models/products')
 
-// Get all the products with a matching name
+// Get all the products with a matching name from a URI query
 router.get('/', (req, res) => {
     // Verify that query exists
     if (!req.query.query) {
@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
 });
 
 // Get a product with a given id
-router.get('/:id', (req, res) => {
+router.get('/id/:id', (req, res) => {
     Product.findById(req.params.id)
     .then(result => {
         res.status(200).json(result);
@@ -33,6 +33,15 @@ router.get('/:id', (req, res) => {
     });
 });
 
+// Backup Collection to a JSON file
+router.get('/backup', (req, res) => {
+    Product.backupCollection((err, msg) => {
+        console.log('router.get check');
+        if (err) return res.status(500).json({ err: 'Backup failed...' });
+        return res.status(200).json({ msg: msg});
+    })
+})
+
 // Save one product
 router.post('/', (req, res) => {
     Product.saveOne()
@@ -42,6 +51,17 @@ router.post('/', (req, res) => {
     .catch(jsonRes => {
         res.status(500).json(jsonRes)
     });
-})
+});
+
+router.delete('/:store/:category', (req, res) => {
+    console.log('check route');
+    Product.deleteMany(req.params.store, req.params.category)
+    .then(result => {
+        res.status(200).json(result);
+    })
+    .catch(err => {
+        res.status(500).json(err);
+    })
+});
 
 module.exports = router;
