@@ -1,6 +1,18 @@
 const xray = require('x-ray');
 
-let x  = xray().delay(1000);
+let x  = xray({
+    filters: {
+        priceToInt: function (value) {
+            return typeof value == 'string' ? parseInt(value.replace(/[$,.]/g, '')) : value;
+        },
+        storeName: function () {
+            return 'Noi'
+        },
+        category: function () {
+            return 'medicine'
+        }
+    }
+}).delay(1000);
 
 module.exports = () => {
     return new Promise ((resolve, reject) => {
@@ -11,8 +23,10 @@ module.exports = () => {
             [{
                 name: '.product-title a@html',
                 href: 'a@href',
-                price: 'span.woocommerce-Price-amount',
-                imageHref: 'img@src'
+                price: 'span.woocommerce-Price-amount | priceToInt',
+                imageHref: 'img@src',
+                store: 'h1 | storeName',
+                category: 'h1 | category'
             }]
         )
         .paginate('.next.page-numbers@href') // Next page button .css classes

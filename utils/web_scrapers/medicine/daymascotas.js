@@ -14,9 +14,15 @@ let x  = xray({
         rmHorarios: function (value) {
             return value === 'HORARIOS' ? value = '' : value
         },
-        trunk: function (value) {
-            return value.length > 7 ? value.slice(value.indexOf('$', 1)) : value
-        }
+        priceToInt: function (value) {
+            return typeof value == 'string' ? parseInt(value.replace(/[$,.]/g, '')) : value;
+        },
+        storeName: function () {
+            return 'Day Mascotas';
+        },
+        category: function () {
+            return 'medicine';
+        } 
     }
 }).delay(1000);
 
@@ -29,8 +35,10 @@ module.exports = () => {
             [{
                 name: 'h2 | rmVisitanos | rmLlamanos | rmEscribenos | rmHorarios',
                 href: 'a@href',
-                price: '.price | trunk',
-                imageHref: 'img@src'  
+                price: '.price | priceToInt',
+                imageHref: 'img@src',
+                store: 'h1 | storeName',
+                category: 'h1 | category'
             }]
         )
         .paginate('.next.page-numbers@href') // Next page button .css classes

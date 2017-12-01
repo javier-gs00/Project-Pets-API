@@ -3,7 +3,11 @@ const WebScraper = require('../../utils/web_scrapers/_web_scrapers_model');
 
 // Execute all the web scrapers of a given category. ie: food
 router.get('/category/:category', (req, res) => {
-    res.status(200).json({ msg: 'In development...', from: '/:category'});
+    WebScraper.executeByCategory(req.params.category).then(results => {
+        res.status(200).json(results);
+    }).catch(err => {
+        res.status(500).json(err)
+    });
 });
 
 // Execute a single scraper from a given category. ie: daymascotas food web scraper

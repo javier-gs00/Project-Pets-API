@@ -13,6 +13,45 @@ const ProductSchema = new mongoose.Schema({
 
 const ProductModel = mongoose.model('Product', ProductSchema);
 
+// Backup Product Collection to a JSON file in the root directory
+exports.backupCollection = (callback) => {
+    ProductModel.find().exec((err, products) => {
+        let backupJSON = JSON.stringify(products, null, '\t');
+        let location = global.__rootDir + '/backupJSON/products.json';
+        location = path.normalize(location);
+        fs.writeFile(location, backupJSON, (err) => {
+            let msg = 'Product Collection JSON backup created at: ' + location;
+            callback(err, msg);
+        })
+    });
+};
+
+// Delete one Product by ID
+exports.deleteOne = (id, callback) => {
+    ProductModel.findOneAndRemove({ _id: id }, (err, result) => {
+        callback(err, result)
+    });
+};
+
+// Delete all products from a store specified category
+// Categories are food, medicine or accesories
+exports.deleteMany = (storeName, categoryName) => {
+    return new Promise ((resolve, reject) => {
+        console.log('check function');
+        if (categoryName.match(/^(food|medicine|accesory)$/)) {
+            ProductModel.deleteMany({ category: categoryName, store: storeName }, (err, result) => {
+                // result is DeleteWriteOpResultObject wich contains the deleted count
+                resolve(result);
+                reject(err);
+            });
+        } else {
+            let err = new Error("Err: Product.deleteMany.categoryName doesn't match..." );
+            reject(err) 
+        }
+    });
+};
+
+// Find a product by Id
 exports.findById = id => {
     return new Promise((resolve, reject) => {
         ProductModel.findById(id, (err, product) => {
@@ -20,8 +59,9 @@ exports.findById = id => {
             reject(err);
         })
     })
-}
+};
 
+// Find a product by name using a RegExp
 exports.findByName = query => {
     return new Promise((resolve, reject) => {
         ProductModel.find({ name: new RegExp(query, 'i') }, (err, products) => {
@@ -29,6 +69,13 @@ exports.findByName = query => {
             reject(err);
         });
     });
+};
+
+// Get all the products from a given category and store
+exports.findByStoreAndCateogory = (storeName, category, callback) => {
+    ProductModel.find({ store: new RegExp(storeName, 'i'), category: new RegExp(category, 'i') }, (err, products) => {
+        callback(err, products);
+    })
 };
 
 exports.saveOne = () => {
@@ -57,32 +104,22 @@ exports.saveOne = () => {
     })
 }
 
-exports.saveMany = (data, storeName, category) => {
+exports.saveMany = (data) => {
     return new Promise (function (resolve, reject) {
         checkData(data)
         .then(function (data) {
             let counter = 0;
-            let date = getDate();
-    
-            data.forEach(function(product) {                
-                //Transform price from string to number
-                if (typeof product.price === "string") {
-                    product.price = product.price.replace(/\$/g, '')
-                    product.price = product.price.replace(/\,/g, '')
-                    product.price = product.price.replace(/\./g, '')
-                    parseInt(product.price)
-                }
-    
+            let date = getDate();    
+            data.forEach(function(product) {   
                 let newProduct = new ProductModel ({
                     name: product.name,
                     price: product.price,
                     href: product.href,
                     image_href: product.imageHref,
-                    category: category,
-                    store: storeName,
+                    category: product.category,
+                    store: product.store,
                     date: date
-                })
-    
+                })    
                 newProduct.save(function (err, newDocument) {
                     if (err) reject(err);
                 })    
@@ -97,50 +134,12 @@ exports.saveMany = (data, storeName, category) => {
     });
 };
 
-// Delete all products from a store specified category
-// Categories are food, medicine or accesories
-exports.deleteMany = (storeName, categoryName) => {
-    return new Promise ((resolve, reject) => {
-        console.log('check function');
-        if (categoryName.match(/^(food|medicine|accesory)$/)) {
-            ProductModel.deleteMany({ category: categoryName, store: storeName }, (err, result) => {
-                // result is DeleteWriteOpResultObject wich contains the deleted count
-                resolve(result);
-                reject(err);
-            });
-        } else {
-            let err = new Error("Err: Product.deleteMany.categoryName doesn't match..." );
-            reject(err) 
-        }
-        // if (categoryName === 'food') {
-
-        // } else if (categoryName === 'medicine') {
-        //     ProductModel.deleteMany({ category: categoryName, store: storeName }, (err, result) => {
-        //         // result is DeleteWriteOpResultObject wich contains the deleted count
-        //         resolve(result);
-        //         reject(err);
-        //     })
-        // } else if (categoryName === 'accesory') {
-
-        // } else {
-        //     let err = new Error("Err: Product.deleteMany.categoryName doesn't match..." );
-        //     reject(err) 
-        // }
+// Update one product by Id
+exports.updateOne = (id, data, callback) => {
+    ProductModel.findByIdAndUpdate(id, data, {new: true}, (err, result) => {
+        callback(err, result);
     });
 };
-
-// Backup Product Collection to a JSON file in the root directory
-exports.backupCollection = (callback) => {
-    ProductModel.find().exec((err, products) => {
-        let backupJSON = JSON.stringify(products, null, '\t');
-        let location = global.__rootDir + '/backupJSON/products.json';
-        location = path.normalize(location);
-        fs.writeFile(location, backupJSON, (err) => {
-            let msg = 'Product Collection JSON backup created at: ' + location;
-            callback(err, msg);
-        })
-    });
-}
 
 // Check that the scraped data contains vaules for name, price and href
 function checkData (data) {
