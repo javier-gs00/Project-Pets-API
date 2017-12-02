@@ -26,6 +26,15 @@ exports.backupCollection = (callback) => {
     });
 };
 
+// Compare scraped data with the data in the database and update accordingly
+// exports.compareProducts = (scrapedData) => {
+//     return new Promise ((resolve, reject) => {
+//         scrapedData.forEach(product => {
+//             ProductModel.find({})
+//         })
+//     });
+// };
+
 // Delete one Product by ID
 exports.deleteOne = (id, callback) => {
     ProductModel.findOneAndRemove({ _id: id }, (err, result) => {
@@ -64,10 +73,14 @@ exports.findById = id => {
 // Find a product by name using a RegExp
 exports.findByName = query => {
     return new Promise((resolve, reject) => {
-        ProductModel.find({ name: new RegExp(query, 'i') }, (err, products) => {
+        ProductModel.find({ name: { $regex: query, $options: "i"} }, (err, products) => {
             resolve(products);
             reject(err);
         });
+        // ProductModel.find({ name: new RegExp(query, 'i') }, (err, products) => {
+        //     resolve(products);
+        //     reject(err);
+        // });
     });
 };
 

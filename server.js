@@ -10,12 +10,13 @@ global.__rootDir = __dirname;
 
 // MongoDB setup
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.DB_HOST, {
+mongoose.connect(process.env.DB_URL, {
     useMongoClient: true
 });
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'db connection error: '));
 
+app.set('port', (process.env.PORT || 3001));
 app.use('/api', routes);
 
 // Catch 404 and forward to error handler
@@ -28,9 +29,13 @@ app.use('/api', routes);
 //Basic error-handling middleware
 app.use((err, req, res, next) => {
     console.log(err);
-    res.status(500).send(err.response || 'Somethin broke :(...');
+    res.status(500).send(err.response || 'Something broke :(...');
 })
 
-app.listen(process.env.PORT, () => {
-    console.log('App listening on port 3001...');
+// app.listen(process.env.PORT || 3001, () => {
+//     const port = process.env.PORT;
+//     console.log(`App listening on port ${port}`);
+// })
+app.listen(app.get('port'), () => {
+    console.log('App listening on port', app.get('port'));
 })

@@ -19,15 +19,15 @@ exports.executeOne = (category, storeName) => {
         // Create path to web scraper
         let pathToWebScraper = "./"+category+"/"+storeName;
         // pathToWebScraper = path.normalize(pathToWebScraper);
-        console.log("========== " + scraper.storeName + " " + category + " scraper started ==========");
+        console.log("========== " + storeName + " " + category + " scraper started ==========");
         // Require timer and scraper to execute
-        let startTimer = timer();
+        // let startTimer = timer();
         // const scraper = require('./medicine/noi');
         const scraper = require(pathToWebScraper);
         scraper().then(data => {
-            let endTimer = timer(startTimer);
+            // let endTimer = timer(startTimer);
             console.log("========== " + storeName + " " + category + " scraper finished ==========");
-            console.log("completed in: " + endTimer + " ms");
+            // console.log("completed in: " + endTimer + " ms");
             return Product.saveMany(data)
         }).then(counter => {
             let result = responseOject(true, counter, storeName, category, null)
@@ -50,7 +50,7 @@ exports.executeByCategory = (category) => {
                 let pathToWebScraper = './'+category+'/'+scraper.fileName;
                 console.log("========== " + scraper.storeName + " " + category + " scraper started ==========");
                 const webScraper = require(pathToWebScraper);
-                // let startTimer = timer();
+                // let startTimer = timer(); // timer breaks the execution of multiple scrapers, need fixing
                 webScraper().then(data => {
                     // let endTimer = timer(startTimer);
                     console.log("========== " + scraper.storeName + " " + category + " scraper finished ==========");
