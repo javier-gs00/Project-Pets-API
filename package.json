@@ -6,7 +6,8 @@
   "author": "javier gutierrez",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon"
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
