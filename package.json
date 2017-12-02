@@ -4,7 +4,10 @@
   "description": "front & back-end of the website",
   "main": "server.js",
   "author": "javier gutierrez",
-  "license": "MIT",
+  "license": "MIT",,
+  "engines": {
+    "node": "8.9.0"
+  },
   "scripts": {
     "start": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
