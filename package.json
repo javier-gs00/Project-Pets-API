@@ -1,7 +1,7 @@
 {
   "name": "bazardemascotas",
   "version": "0.2.0",
-  "description": "front & back-end of the website",
+  "description": "API for project-pets-client",
   "main": "server.js",
   "author": "javier gutierrez",
   "license": "MIT",
