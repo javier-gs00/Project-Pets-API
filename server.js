@@ -11,7 +11,7 @@ global.__rootDir = __dirname;
 
 // MongoDB setup
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.PROD_MONGODB || 'mongodb://localhost/projectpets', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/projectpets', {
     useMongoClient: true
 });
 const db = mongoose.connection
