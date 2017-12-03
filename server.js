@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const routes = require('./controllers/index');
 const mongoose = require('mongoose');
 
@@ -18,6 +19,8 @@ db.on('error', console.error.bind(console, 'db connection error: '));
 
 app.set('port', (process.env.PORT || 3001));
 app.use('/api', routes);
+
+app.use(express.static(path.join(__dirname, 'build')));
 
 // Catch 404 and forward to error handler
 // app.use((req, res, next) => {
