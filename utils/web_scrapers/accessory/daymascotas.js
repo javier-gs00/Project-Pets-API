@@ -22,18 +22,18 @@ let x  = xray({
             return 'Day Mascotas'
         },
         category: function () {
-            return 'food'
+            return 'accessory'
         } 
     }
 }).delay(1000)
 
 module.exports = () => {
     return new Promise ((resolve, reject) => {
-        console.log('==== Starting Day Mascotas dog food web scraper ====')
+        console.log('==== Starting Day Mascotas accessories web scraper ====')
         let startTimer = timer();
         // Init scraper
         x(
-            'http://daymascotas.cl/categoria-producto/alimentos-perro/',
+            'http://daymascotas.cl/categoria-producto/accesorios/',
             '.show-links-onimage',
             [{
                 name: 'h2 | rmVisitanos | rmLlamanos | rmEscribenos | rmHorarios',
@@ -45,14 +45,14 @@ module.exports = () => {
             }]
         )
         .paginate('.next.page-numbers@href') // Next page button .css classes
-        .limit(8) // Pages to crawl limit
+        .limit(2) // Pages to crawl limit
         ((err, data) => {
             if (err) {
-                console.log('Error from Day Mascotas dog food web scraper...')
+                console.log('Error from Day Mascotas accessories web scraper...')
                 reject(err)
             } else {
                 let endTimer = timer(startTimer);
-                console.log("== Day Mascotas dog food web scraper completed in: " + endTimer + " ms ==")
+                console.log("== Day Mascotas accessories web scraper completed in: " + endTimer + " ms ==")
                 resolve(data)
             }
         })
