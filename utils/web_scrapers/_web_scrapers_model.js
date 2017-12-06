@@ -2,7 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 const async = require('async');
-const timer = require('../timer/timer');
+// const timer = require('../timer/timer');
 let Product = require('../../models/products');
 // let daymascotas = require('./medicine/daymascotas');
 
