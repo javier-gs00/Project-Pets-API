@@ -23,7 +23,10 @@ let x  = xray({
         },
         category: function () {
             return 'food'
-        } 
+        },
+        animal: function () {
+            return 'cat'
+        }
     }
 }).delay(1000)
 
@@ -41,7 +44,8 @@ module.exports = () => {
                 price: '.price | priceToInt',
                 imageHref: 'img@src',
                 store: 'h1 | storeName',
-                category: 'h1 | category'
+                category: 'h1 | category',
+                animal: 'h1 | animal'
             }]
         )
         .paginate('.next.page-numbers@href') // Next page button .css classes

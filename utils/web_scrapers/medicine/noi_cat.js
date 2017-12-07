@@ -1,47 +1,39 @@
 const xray = require('x-ray')
 const timer = require('../../timer')
+const latinUnicodeParser = require('../../latinUnicodeParser')
 
 let x  = xray({
     filters: {
-        rmVisitanos: function (value) {
-            return value === 'VISITANOS' ? value = '' : value
-        },
-        rmLlamanos: function (value) {
-            return value === 'LLÁMANOS' ? value = '' : value
-        },
-        rmEscribenos: function (value) {
-            return value === 'ESCRÍBENOS' ? value = '' : value
-        },
-        rmHorarios: function (value) {
-            return value === 'HORARIOS' ? value = '' : value
+        parseHexUnicode: function (value) {
+            return value.indexOf('&#') > 0 ? latinUnicodeParser(value) : value
         },
         priceToInt: function (value) {
             return typeof value == 'string' ? parseInt(value.replace(/[$,.]/g, '')) : value
         },
         storeName: function () {
-            return 'Day Mascotas'
+            return 'Noi'
         },
         category: function () {
-            return 'accessory'
+            return 'medicine'
         },
         animal: function () {
-            return ''
+            return 'cat'
         }
     }
 }).delay(1000)
 
 module.exports = () => {
     return new Promise ((resolve, reject) => {
-        console.log('==== Starting Day Mascotas accessories web scraper ====')
+        console.log('==== Starting Noi Mascotas cat medicine web scraper ====')
         let startTimer = timer();
         // Init scraper
         x(
-            'http://daymascotas.cl/categoria-producto/accesorios/',
-            '.show-links-onimage',
+            'https://www.noi.la/mascotte/perros/farmacia-perros/',
+            'div.product',
             [{
-                name: 'h2 | rmVisitanos | rmLlamanos | rmEscribenos | rmHorarios',
+                name: '.product-title a@html | parseHexUnicode',
                 href: 'a@href',
-                price: '.price | priceToInt',
+                price: 'span.woocommerce-Price-amount | priceToInt',
                 imageHref: 'img@src',
                 store: 'h1 | storeName',
                 category: 'h1 | category',
@@ -52,11 +44,11 @@ module.exports = () => {
         .limit(2) // Pages to crawl limit
         ((err, data) => {
             if (err) {
-                console.log('Error from Day Mascotas accessories web scraper...')
+                console.log('Error fron Noi cat medicine web scraper...')
                 reject(err)
             } else {
                 let endTimer = timer(startTimer);
-                console.log("== Day Mascotas accessories web scraper completed in: " + endTimer + " ms ==")
+                console.log("== Noi Mascotas cat medicine web scraper completed in: " + endTimer + " ms ==")
                 resolve(data)
             }
         })

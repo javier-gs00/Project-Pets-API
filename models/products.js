@@ -7,6 +7,7 @@ const ProductSchema = new mongoose.Schema({
     href: String,
     image_href: String,
     category: String,
+    animal: { type: String, default: '' },
     store: String,
     date: { type: Date, default: Date.now }
 });
@@ -100,6 +101,7 @@ exports.saveOne = () => {
             href: 'href',
             image_href: 'Image href',
             category: 'test category',
+            animal: 'test animal',
             store: 'test store'
         })
         console.log('check 2')
@@ -130,6 +132,7 @@ exports.saveMany = (data) => {
                     href: product.href,
                     image_href: product.imageHref,
                     category: product.category,
+                    animal: product.animal,
                     store: product.store,
                     date: date
                 })    
