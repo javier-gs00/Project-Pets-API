@@ -17,18 +17,18 @@ let x  = xray({
             return 'food'
         },
         animal: function () {
-            return 'dog'
+            return 'cat'
         }
     }
 }).delay(1000);
 
 module.exports = () => {
     return new Promise ((resolve, reject) => {
-        console.log('==== Starting Tienda Pet dog food web scraper ====')
+        console.log('==== Starting Tienda Pet cat food web scraper ====')
         let startTimer = timer();
         // Init scraper
         x(
-            'https://www.tiendapet.cl/catalogo/perro/alimentos/',
+            'https://www.tiendapet.cl/catalogo/gato/alimentos/',
             'div.block-producto',
             [{
                 name: 'h5 | parseHexUnicode',
@@ -41,14 +41,14 @@ module.exports = () => {
             }]
         )
         .paginate('a.fa-chevron-right@href') // Next page button .css classes
-        .limit(43) // Pages to crawl limit
+        .limit(19) // Pages to crawl limit
         ((err, data) => {
             if (err) {
-                console.log('Error fron Tienda Pet dog food web scraper...')
+                console.log('Error fron Tienda Pet cat food web scraper...')
                 reject(err)
             } else {
                 let endTimer = timer(startTimer)
-                console.log("== Tienda Pet dog food web scraper completed in: " + endTimer + " ms ==")
+                console.log("== Tienda Pet cat food web scraper completed in: " + endTimer + " ms ==")
                 let products = handleTableData(data)
                 products.forEach(element => {
                     console.log(element.name)
