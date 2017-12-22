@@ -12,7 +12,7 @@ global.__rootDir = __dirname
 
 // MongoDB setup
 mongoose.Promise = global.Promise
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/projectpets', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/projectpetsnodejs', {
     useMongoClient: true
 }, (err) => {
     if (err) console.log('Err connecting to the db.. err desc=', err)
