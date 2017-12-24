@@ -17,7 +17,6 @@
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "mongoose": "^4.13.4",
-    "validator": "^9.1.2",
-    "x-ray": "^2.3.2"
+    "validator": "^9.1.2"
   }
 }
