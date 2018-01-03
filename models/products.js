@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 const ProductSchema = new mongoose.Schema({
     name: String,
     price: Number,
-    href: String,
-    image_href: String,
+    url: String,
+    imageUrl: String,
     category: String,
     animal: { type: String, default: '' },
     store: String,
@@ -21,6 +21,7 @@ exports.backupCollection = (callback) => {
         let location = global.__rootDir + '/backupJSON/products.json';
         location = path.normalize(location);
         fs.writeFile(location, backupJSON, (err) => {
+            if (err) console.error('Error saving data to json, err: ', err)
             let msg = 'Product Collection JSON backup created at: ' + location;
             callback(err, msg);
         })
