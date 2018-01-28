@@ -15,8 +15,12 @@ mongoose.Promise = global.Promise
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/projectpetsnodejs', {
     useMongoClient: true
 }, (err) => {
-    if (err) console.log('Err connecting to the db.. err desc=', err)
-    console.log('Connection to database succesfull')
+    if (err) return console.log('Err connecting to the db.. err desc=', err)
+    if (process.env.MONGODB_URI) {
+        return console.log('Connection to production database successful')
+    } else {
+        return console.log('Connection to development database successful')
+    }
 })
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'db connection error: '))
