@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const StoreSchema = new mongoose.Schema({
     name: {type: String, require: true},
-    url: {type: String, require: true},
+    uri: {type: String, require: true},
     email: [{
         name: {type: String, require: true},
         uri: {type: String, require: true}
@@ -9,7 +9,7 @@ const StoreSchema = new mongoose.Schema({
     address: [{
         street: {type: String, require: true},
         commune: {type: String, require: true},
-        citytown: {type: String, require: true},
+        cityTown: {type: String, require: true},
         region: {type: String, require: true},
         Latitude: {type: Number},
         Longitude: {type: Number}
@@ -63,7 +63,7 @@ async function findOne(name) {
     try {
         let store = await StoreModel.find({name: name})
         if (!store.length) return ({error: "Store not found"})
-        return store
+        return store[0]
     } catch(err) {
         return ({error: "Error while performing a store search"})
     }
