@@ -31,11 +31,45 @@ const StoreSchema = new mongoose.Schema({
 
 const StoreModel = mongoose.model('Store', StoreSchema)
 
-exports.find = () => {
-    return new Promise ((resolve, reject) => {
-        StoreModel.find((err, results) => {
-            if (err) reject(err)
-            resolve(results)
-        })
-    })
+// const find = () => {
+//     return new Promise ((resolve, reject) => {
+//         StoreModel.find((err, results) => {
+//             if (err) reject(err)
+//             resolve(results)
+//         })
+//     })
+// }
+
+async function find() {
+    try {
+        const results = await StoreModel.find()
+        if (!results.length) return ({error: "Stores not found"})
+        return results
+    } catch(err) {
+        return ({error: "Error while getting the stores"})
+    }
+}
+
+// const findOne = name => {
+//     return new Promise((resolve, reject) => {
+//         StoreModel.find({name: name}, (err, results) => {
+//             if (!results.length) reject(err)
+//             resolve(results)
+//         })
+//     })
+// }
+
+async function findOne(name) {
+    try {
+        let store = await StoreModel.find({name: name})
+        if (!store.length) return ({error: "Store not found"})
+        return store
+    } catch(err) {
+        return ({error: "Error while performing a store search"})
+    }
+}
+
+module.exports = {
+    find,
+    findOne
 }
