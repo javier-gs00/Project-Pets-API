@@ -11,8 +11,8 @@ const StoreSchema = new mongoose.Schema({
         commune: {type: String, require: true},
         cityTown: {type: String, require: true},
         region: {type: String, require: true},
-        Latitude: {type: Number},
-        Longitude: {type: Number}
+        latitude: {type: Number},
+        longitude: {type: Number}
     }],
     phone: [{
         name: {type: String, require: true},
@@ -23,6 +23,7 @@ const StoreSchema = new mongoose.Schema({
         open: {type: String, require: true},
         close: {type: String, require: true}
     }],
+    grooming: {type: Boolean, require: true, default: false},
     veterinary: {type: Boolean, require: true, default: false},
     urgency: {type: Boolean, require: true, default: false},
     physical_store: {type: Boolean, require: true, default: false},
@@ -30,15 +31,6 @@ const StoreSchema = new mongoose.Schema({
 })
 
 const StoreModel = mongoose.model('Store', StoreSchema)
-
-// const find = () => {
-//     return new Promise ((resolve, reject) => {
-//         StoreModel.find((err, results) => {
-//             if (err) reject(err)
-//             resolve(results)
-//         })
-//     })
-// }
 
 async function find() {
     try {
@@ -49,15 +41,6 @@ async function find() {
         return ({error: "Error while getting the stores"})
     }
 }
-
-// const findOne = name => {
-//     return new Promise((resolve, reject) => {
-//         StoreModel.find({name: name}, (err, results) => {
-//             if (!results.length) reject(err)
-//             resolve(results)
-//         })
-//     })
-// }
 
 async function findOne(name) {
     try {
