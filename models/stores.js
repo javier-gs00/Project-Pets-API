@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const StoreSchema = new mongoose.Schema({
     name: {type: String, require: true},
-    uri: {type: String, require: true},
+    url: {type: String, require: true},
     email: [{
         name: {type: String, require: true},
         uri: {type: String, require: true}

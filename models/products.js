@@ -70,28 +70,34 @@ exports.findById = id => {
             reject(err);
         })
     })
-};
+}
 
 // Find a product by name using a RegExp
 exports.findByName = query => {
     return new Promise((resolve, reject) => {
         ProductModel.find({ name: { $regex: query, $options: "i"} }, (err, products) => {
-            resolve(products);
-            reject(err);
-        });
+            resolve(products)
+            reject(err)
+        })
         // ProductModel.find({ name: new RegExp(query, 'i') }, (err, products) => {
         //     resolve(products);
         //     reject(err);
         // });
-    });
-};
+    })
+}
 
 // Get all the products from a given category and store
 exports.findByStoreAndCateogory = (storeName, category, callback) => {
     ProductModel.find({ store: new RegExp(storeName, 'i'), category: new RegExp(category, 'i') }, (err, products) => {
         callback(err, products);
     })
-};
+}
+
+exports.findByCategory = (category, callback) => {
+    ProductModel.find({ category: new RegExp(category, 'i')}, (err, products) => {
+        callback(err, products)
+    })
+}
 
 exports.saveOne = () => {
     return new Promise ((resolve, reject) => {

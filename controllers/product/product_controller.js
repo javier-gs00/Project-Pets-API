@@ -54,6 +54,14 @@ router.delete('/id/:id', (req, res) => {
     });
 });
 
+// Get all the products from a given category
+router.get('/category/:category', (req, res) => {
+    Product.findByCategory(req.params.category, (err, result) => {
+        if (err) return res.status(500).json(err)
+        return res.status(200).json(result)
+    })
+})
+
 // Get all the products from a given category from a store
 router.get('/:store/:category', (req, res) => {
     Product.findByStoreAndCateogory(req.params.store, req.params.category, (err, result) => {
