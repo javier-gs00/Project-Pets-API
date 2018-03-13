@@ -68,8 +68,8 @@ exports.findByProductId = id => {
         ProductModel.findById(id, (err, product) => {
             console.log(`Mongoose findById product: ${product}`)
             console.log(`Mongoose findById error: ${err}`)
+            if (err) reject(err)
             resolve(product)
-            reject(err)
         })
     })
 }
@@ -89,7 +89,7 @@ exports.findByName = query => {
 }
 
 // Get all the products from a given category and store
-exports.findByStoreAndCateogory = (storeName, category, callback) => {
+exports.findByStoreAndCategory = (storeName, category, callback) => {
     ProductModel.find({ store: new RegExp(storeName, 'i'), category: new RegExp(category, 'i') }, (err, products) => {
         callback(err, products)
     })
