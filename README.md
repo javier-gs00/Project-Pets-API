@@ -23,7 +23,7 @@ App still in development.
 /api/product/category/:category
 
 ### Get all the stores (GET)
-/api/stores
+/api/store
 
 ### Get a single store by name (GET)
-/api/stores/:store_name
+/api/store/:store_name
