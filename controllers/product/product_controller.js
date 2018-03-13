@@ -1,5 +1,5 @@
 const router = require('express').Router() 
-const mongoose = require('mongoose') 
+const mongoose = require('mongoose')
 const Product = require('../../models/products')
 
 // Get all the products with a matching name from a URI query

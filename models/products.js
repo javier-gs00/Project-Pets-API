@@ -1,6 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const mongoose = require('mongoose')
+const ObjectId = require('mongoose').SchemaTypes.ObjectId
 const ProductSchema = new mongoose.Schema({
     name: String,
     price: Number,
@@ -64,6 +65,8 @@ exports.deleteMany = (storeName, categoryName) => {
 
 // Find a product by Id
 exports.findByProductId = id => {
+    console.log(process.env.NODE_ENV)
+    const productId = process.env.NODE_ENV === 'production' ? ObjectId(id) : id
     return new Promise((resolve, reject) => {
         ProductModel.findById(id, (err, product) => {
             console.log(`Mongoose findById product: ${product}`)
