@@ -46,13 +46,13 @@ exports.deleteOne = (id, callback) => {
 }
 
 // Delete all products from a store specified category
-// Categories are food, medicine or accesories
+// Categories are food, medicine or accessories
 exports.deleteMany = (storeName, categoryName) => {
     return new Promise ((resolve, reject) => {
         console.log('check function')
         if (categoryName.match(/^(food|medicine|accesory)$/)) {
             ProductModel.deleteMany({ category: categoryName, store: storeName }, (err, result) => {
-                // result is DeleteWriteOpResultObject wich contains the deleted count
+                // result is DeleteWriteOpResultObject which contains the deleted count
                 resolve(result)
                 reject(err)
             })
@@ -69,7 +69,7 @@ exports.findByProductId = id => {
     // const productId = process.env.NODE_ENV === 'production' ? new ObjectId(id) : id
     // console.log(typeof ObjectId(id))
     return new Promise((resolve, reject) => {
-        ProductModel.findOne({ _id: id }, (err, product) => {
+        ProductModel.findOne({ _id: new ObjectId(id) }, (err, product) => {
             console.log(`Mongoose finOne product: ${product}`)
             console.log(`Mongoose finOne error: ${err}`)
             if (err) reject(err)
