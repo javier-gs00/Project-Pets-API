@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
 
 // Get a product with a given id
 router.get('/id/:id', (req, res) => {
-    Product.findById(req.params.id).then(result => {
+    Product.findByProductId(req.params.id).then(result => {
         console.log(`Route response result: ${result}`)
         return res.status(200).json(result) 
     }).catch(error => {

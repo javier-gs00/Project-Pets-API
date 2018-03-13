@@ -63,7 +63,7 @@ exports.deleteMany = (storeName, categoryName) => {
 }
 
 // Find a product by Id
-exports.findById = id => {
+exports.findByProductId = id => {
     return new Promise((resolve, reject) => {
         ProductModel.findById(id, (err, product) => {
             console.log(`Mongoose findById product: ${product}`)
