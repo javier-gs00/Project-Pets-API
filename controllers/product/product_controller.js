@@ -31,10 +31,10 @@ router.post('/', (req, res) => {
 // Get a product with a given id
 router.get('/id/:id', (req, res) => {
     Product.findById(req.params.id).then(result => {
-        console.log(result)
+        console.log(`Route response result: ${result}`)
         return res.status(200).json(result) 
     }).catch(error => {
-        console.log(error)
+        console.log(`Route response error: ${error}`)
         throw new Error(`=== Error while searching the db:\n ==== ${error}`) 
         return res.status(500).json([]) 
     }) 
