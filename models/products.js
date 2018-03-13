@@ -69,12 +69,18 @@ exports.findByProductId = id => {
     // const productId = process.env.NODE_ENV === 'production' ? new ObjectId(id) : id
     // console.log(typeof ObjectId(id))
     return new Promise((resolve, reject) => {
-        ProductModel.findById(new ObjectId(id), (err, product) => {
-            console.log(`Mongoose findById product: ${product}`)
-            console.log(`Mongoose findById error: ${err}`)
+        ProductModel.findOne({ _id: id }, (err, product) => {
+            console.log(`Mongoose finOne product: ${product}`)
+            console.log(`Mongoose finOne error: ${err}`)
             if (err) reject(err)
-            resolve(product)
+            resolve(product)            
         })
+        // ProductModel.findById(new ObjectId(id), (err, product) => {
+            // console.log(`Mongoose findById product: ${product}`)
+            // console.log(`Mongoose findById error: ${err}`)
+            // if (err) reject(err)
+            // resolve(product)
+        // })
     })
 }
 
