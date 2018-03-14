@@ -11,13 +11,10 @@ It is fully functional and currently hosted on Heroku, in the following link.
 App still in development.
 
 ---
-## ENDPOINTS
+## AVAILABLE ENDPOINTS
 
 ### Search products (GET)
 /api/product?query=user_query
-
-### Search a product by Id (GET)
-/api/product/:id
 
 ### Search products by category (GET)
 /api/product/category/:category
