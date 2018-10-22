@@ -12,25 +12,24 @@ global.__rootDir = __dirname
 
 // MongoDB setup
 mongoose.Promise = global.Promise
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/projectpetsnodejs', {
-    useMongoClient: true
-}, (err) => {
-    if (err) return console.log('Err connecting to the db.. err desc=', err)
-    if (process.env.MONGODB_URI) {
-        return console.log('Connection to production database successful')
-    } else {
-        return console.log('Connection to development database successful')
-    }
-})
+const dbUrl = process.env.MONGODB_URI || 'mongodb://localhost:27017/projectpets'
+mongoose.connect(
+  dbUrl,
+  { useNewUrlParser: true },
+  function(err) {
+    if (err) return console.log(`Error trying to connect to db url ${dbUrl}, desc: `, err)
+    console.log(`Succesfully connected to db at: ${dbUrl}`)
+  }
+)
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'db connection error: '))
 
-// Set PORT and CORS configuration 
-app.set('port', (process.env.PORT || 3001))
+// Set PORT and CORS configuration
+app.set('port', process.env.PORT || 3001)
 // const whitelist = ['https://project-pets-client.herokuapp.com/', 'http://localhost:3000']
 // const corsOptions = {
 //     origin: function (origin, callback) {
-//         // allow requests with no origin 
+//         // allow requests with no origin
 //         // (like mobile apps or curl requests)
 //         // if(!origin) return callback(null, true)
 //         console.log('======= ORIGIN ========')
@@ -48,7 +47,7 @@ app.set('port', (process.env.PORT || 3001))
 // app.use(function (req, res, next) {
 //     console.log('======= REQUEST HEADERS ========')
 //     console.log(req.header)
-    
+
 //     // Website you wish to allow to connect
 //     res.setHeader('Access-Control-Allow-Origin', 'https://project-pets-client.herokuapp.com/');
 //     // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -73,8 +72,8 @@ app.use('/api', routes)
 
 //Basic error-handling middleware
 app.use((err, req, res, next) => {
-    console.log(err)
-    res.status(500).send(err.response || 'Something broke :(...')
+  console.log(err)
+  res.status(500).send(err.response || 'Something broke :(...')
 })
 
 module.exports = app
