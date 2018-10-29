@@ -3,6 +3,7 @@ const express = require('express')
 const path = require('path')
 const mongoose = require('mongoose')
 require('./models/products')
+require('./models/stores')
 const routes = require('./controllers/index')
 
 const app = express()
