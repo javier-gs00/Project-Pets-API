@@ -1,8 +1,10 @@
 const express = require('express')
 // const cors = require('cors')
 const path = require('path')
-const routes = require('./controllers/index')
 const mongoose = require('mongoose')
+require('./models/products')
+require('./models/stores')
+const routes = require('./controllers/index')
 
 const app = express()
 require('dotenv').config()
