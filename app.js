@@ -3,7 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 require('./models/products')
 require('./models/stores')
-const routes = require('./controllers/index')
+const routes = require('./routes/routes')
 
 global.__rootDir = __dirname
 
