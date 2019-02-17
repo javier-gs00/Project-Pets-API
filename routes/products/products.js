@@ -1,3 +1,4 @@
+require(global.__rootDir + '/models/products')
 const router = require('express').Router()
 const controllers = require(global.__rootDir + '/controllers/products/product_controllers')
 
