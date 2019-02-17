@@ -29,13 +29,6 @@ ProductSchema.statics.backupCollection = callback => {
   })
 }
 
-// Delete one Product by ID
-// exports.deleteOne = (id, callback) => {
-//     ProductModel.findOneAndRemove({ _id: id }, (err, result) => {
-//         callback(err, result)
-//     })
-// }
-
 // Delete all products from a store specified category
 // Categories are food, medicine or accessories
 ProductSchema.statics.deleteMany = (storeName, categoryName) => {
