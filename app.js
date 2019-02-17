@@ -1,11 +1,10 @@
 require('dotenv').config()
+global.__rootDir = __dirname
 const express = require('express')
 const mongoose = require('mongoose')
 require('./models/products')
 require('./models/stores')
 const routes = require('./routes/routes')
-
-global.__rootDir = __dirname
 
 const app = express()
 
