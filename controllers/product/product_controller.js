@@ -4,7 +4,6 @@ const router = require('express').Router()
 
 // Get all the products with a matching name from a URI query
 router.get('/', (req, res) => {
-  // Verify that query exists
   if (!req.query.query) {
     return res.json({
       error: 'Error: No search query received...'
