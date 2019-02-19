@@ -29,25 +29,6 @@ ProductSchema.statics.backupCollection = callback => {
   })
 }
 
-// Delete all products from a store specified category
-// Categories are food, medicine or accessories
-ProductSchema.statics.deleteMany = (storeName, categoryName) => {
-  const ProductModel = mongoose.model('Product')
-  return new Promise((resolve, reject) => {
-    console.log('check function')
-    if (categoryName.match(/^(food|medicine|accesory)$/)) {
-      ProductModel.deleteMany({ category: categoryName, store: storeName }, (err, result) => {
-        // result is DeleteWriteOpResultObject which contains the deleted count
-        resolve(result)
-        reject(err)
-      })
-    } else {
-      let err = new Error("Err: Product.deleteMany.categoryName doesn't match...")
-      reject(err)
-    }
-  })
-}
-
 // Find a product by name using a RegExp
 ProductSchema.statics.findByName = query => {
   const ProductModel = mongoose.model('Product')

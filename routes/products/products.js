@@ -3,7 +3,7 @@ const router = require('express').Router()
 const controllers = require(global.__rootDir + '/controllers/products/product_controllers')
 
 // Get all the products with a matching name from a URI query
-router.get('/', controllers.list)
+router.get('/', controllers.findByName)
 
 // Save one product
 router.post('/', controllers.save)
