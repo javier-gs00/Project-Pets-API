@@ -1,6 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const mongoose = require('mongoose')
+
 const Schema = mongoose.Schema
 const ProductSchema = new Schema({
   name: String,
@@ -25,33 +26,6 @@ ProductSchema.statics.backupCollection = callback => {
       if (err) console.error('Error saving data to json, err: ', err)
       let msg = 'Product Collection JSON backup created at: ' + location
       callback(err, msg)
-    })
-  })
-}
-
-ProductSchema.statics.saveOne = () => {
-  return new Promise((resolve, reject) => {
-    console.log('check 1')
-    let newProduct = new ProductModel({
-      name: 'Test',
-      price: 123,
-      href: 'href',
-      image_href: 'Image href',
-      category: 'test category',
-      animal: 'test animal',
-      store: 'test store'
-    })
-    console.log('check 2')
-    newProduct.save((err, newDocument) => {
-      if (err) {
-        console.log('check 3')
-        let error = new Error('Saving doc error')
-        jsonRes = JSON.stringify(error, null, '\t')
-        reject(jsonRes)
-      } else {
-        console.log('check 4')
-        resolve(newDocument)
-      }
     })
   })
 }

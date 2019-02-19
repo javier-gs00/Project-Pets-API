@@ -1,12 +1,13 @@
 require(global.__rootDir + '/models/products')
 const router = require('express').Router()
+const bodyParser = require('body-parser')
 const controllers = require(global.__rootDir + '/controllers/products/product_controllers')
 
 // Get all the products with a matching name from a URI query
 router.get('/', controllers.findByName)
 
 // Save one product
-router.post('/', controllers.save)
+router.post('/', bodyParser.json(), controllers.save)
 
 // Get a product with a given id
 router.get('/id/:id', controllers.findById)
