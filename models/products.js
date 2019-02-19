@@ -29,35 +29,6 @@ ProductSchema.statics.backupCollection = callback => {
   })
 }
 
-// Find a product by name using a RegExp
-ProductSchema.statics.findByName = query => {
-  const ProductModel = mongoose.model('Product')
-  return new Promise((resolve, reject) => {
-    ProductModel.find({ name: { $regex: query, $options: 'i' } }, (err, products) => {
-      resolve(products)
-      reject(err)
-    })
-  })
-}
-
-// Get all the products from a given category and store
-ProductSchema.statics.findByStoreAndCategory = (storeName, category, callback) => {
-  const ProductModel = mongoose.model('Product')
-  ProductModel.find(
-    { store: new RegExp(storeName, 'i'), category: new RegExp(category, 'i') },
-    (err, products) => {
-      callback(err, products)
-    }
-  )
-}
-
-ProductSchema.statics.findByCategory = (category, callback) => {
-  const ProductModel = mongoose.model('Product')
-  ProductModel.find({ category: new RegExp(category, 'i') }, (err, products) => {
-    callback(err, products)
-  })
-}
-
 ProductSchema.statics.saveOne = () => {
   return new Promise((resolve, reject) => {
     console.log('check 1')
