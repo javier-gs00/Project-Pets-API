@@ -48,18 +48,6 @@ ProductSchema.statics.deleteMany = (storeName, categoryName) => {
   })
 }
 
-// Find a product by Id
-ProductSchema.statics.findByProductId = id => {
-  const ProductModel = mongoose.model('Product')
-  console.log(process.env.NODE_ENV)
-  return new Promise((resolve, reject) => {
-    ProductModel.find({ _id: id }, (err, product) => {
-      if (err) reject(err)
-      resolve(product)
-    })
-  })
-}
-
 // Find a product by name using a RegExp
 ProductSchema.statics.findByName = query => {
   const ProductModel = mongoose.model('Product')
