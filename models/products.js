@@ -1,6 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const mongoose = require('mongoose')
+const Promise = require('bluebird')
 
 const Schema = mongoose.Schema
 const ProductSchema = new Schema({
@@ -18,57 +19,41 @@ const ProductSchema = new Schema({
 ProductSchema.statics.backupCollection = callback => {
   const ProductModel = mongoose.model('Product')
   ProductModel.find().exec((err, products) => {
-    let backupJSON = JSON.stringify(products, null, '\t')
+    const backupJSON = JSON.stringify(products, null, '\t')
     let location = global.__rootDir + '/backupJSON/products.json'
     location = path.normalize(location)
 
     fs.writeFile(location, backupJSON, err => {
       if (err) console.error('Error saving data to json, err: ', err)
-      let msg = 'Product Collection JSON backup created at: ' + location
+      const msg = 'Product Collection JSON backup created at: ' + location
       callback(err, msg)
     })
   })
 }
 
-ProductSchema.statics.saveMany = data => {
-  return new Promise(function(resolve, reject) {
-    checkData(data)
-      .then(function(data) {
-        let counter = 0
-        let date = getDate()
-        data.forEach(function(product) {
-          let newProduct = new ProductModel({
-            name: product.name,
-            price: product.price,
-            href: product.href,
-            image_href: product.imageHref,
-            category: product.category,
-            animal: product.animal,
-            store: product.store,
-            date: date
-          })
-          newProduct.save(function(err, newDocument) {
-            if (err) reject(err)
-          })
-          counter += 1
-        })
-        resolve(counter)
-      })
-      .catch(function(err) {
-        let error = new Error('Save Many Product Model error...')
-        reject(error)
-      })
+ProductSchema.statics.saveMany = async data => {
+  const products = await checkData(data)
+  const date = getDate()
+  const total = products.length
+  let counter = 0
+  await Promise.each(products, async function(product) {
+    const newProduct = new ProductModel({ ...product, date })
+    await newProduct.save()
+    counter = counter + 1
   })
+  const response = {
+    savedProducts: counter,
+    totalProducts: total
+  }
+  return response
 }
 
 // Check that the scraped data contains vaules for name, price and href
 function checkData(data) {
   return new Promise(function(resolve, reject) {
-    let err = null
-
     data.forEach(function(product) {
       if (product.name === '' || product.price === '' || product.href === '') {
-        err = 'Incomplete scraped data'
+        const err = 'Incomplete scraped data'
         reject(err)
       }
     })
@@ -77,10 +62,8 @@ function checkData(data) {
 }
 
 function getDate() {
-  let date = new Date()
-
-  // Get the day as a string in format: YYYY/MM/DD
-  let today = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
+  const date = new Date()
+  const today = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
   return today
 }
 
