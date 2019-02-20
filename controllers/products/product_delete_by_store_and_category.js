@@ -3,7 +3,9 @@ const Product = mongoose.model('Product')
 
 exports.deleteByStoreAndCategory = async function(req, res) {
   try {
-    const result = await Product.deleteMany(req.params.store, req.params.category)
+    const { category, store } = req.params
+    const result = await Product.deleteMany({ category, store })
+    // result is DeleteWriteOpResultObject which contains the deleted count
     return res.status(200).json(result)
   } catch (err) {
     return res.status(500).json(err)
