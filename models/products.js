@@ -61,14 +61,6 @@ ProductSchema.statics.saveMany = data => {
   })
 }
 
-// Update one product by Id
-ProductSchema.statics.updateOne = (id, data, callback) => {
-  const ProductModel = mongoose.model('Product')
-  ProductModel.findByIdAndUpdate(id, data, { new: true }, (err, result) => {
-    callback(err, result)
-  })
-}
-
 // Check that the scraped data contains vaules for name, price and href
 function checkData(data) {
   return new Promise(function(resolve, reject) {

@@ -13,7 +13,7 @@ router.post('/', bodyParser.json(), controllers.save)
 router.get('/id/:id', controllers.findById)
 
 // Edit/Update a product with a given id
-router.put('/id/:id', controllers.updateById)
+router.put('/id/:id', bodyParser.json(), controllers.updateById)
 
 // Delete a product with a given id
 router.delete('/id/:id', controllers.deleteById)
