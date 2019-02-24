@@ -2,6 +2,7 @@ require('dotenv').config()
 global.__rootDir = __dirname
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors')
 const routes = require('./routes/routes')
 
 const app = express()
@@ -16,6 +17,8 @@ const db = mongoose.connection
 db.on('error', console.error.bind(console, 'db connection error: '))
 
 app.set('port', process.env.PORT || 3001)
+
+app.use(cors())
 
 app.use('/api', routes)
 
