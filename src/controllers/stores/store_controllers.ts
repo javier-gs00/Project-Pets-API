@@ -1,7 +1,7 @@
-const { storeDetail } = require('./store_detail')
-const { storeList } = require('./store_list')
+import storeDetail from './store_detail'
+import storeList from './store_list'
 
-module.exports = {
+export default {
   storeDetail,
   storeList
 }

@@ -1,8 +1,10 @@
-require(global.__rootDir + '/models/stores')
-const router = require('express').Router()
-const controllers = require(global.__rootDir + '/controllers/stores/store_controllers')
+import 'Src/models/stores'
+import express from 'express'
+import controllers from 'Src/controllers/stores/store_controllers'
+
+const router = express.Router()
 
 router.get('/', controllers.storeList)
 router.get('/:name', controllers.storeDetail)
 
-module.exports = router
+export default router

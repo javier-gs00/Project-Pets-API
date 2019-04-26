@@ -1,7 +1,8 @@
-const mongoose = require('mongoose')
+import { Request, Response } from 'express'
+import mongoose from 'mongoose'
 const Product = mongoose.model('Product')
 
-exports.findByStoreAndCategory = async function(req, res) {
+export default async function(req: Request, res: Response) {
   try {
     const { category, store } = req.params
     const products = await Product.find({

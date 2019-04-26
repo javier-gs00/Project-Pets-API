@@ -1,7 +1,8 @@
-const mongoose = require('mongoose')
+import { Request, Response } from 'express'
+import mongoose from 'mongoose'
 const Product = mongoose.model('Product')
 
-exports.findById = async function(req, res) {
+export default async function(req: Request, res: Response) {
   try {
     const product = await Product.findById(req.params.id)
     return res.status(200).json(product)

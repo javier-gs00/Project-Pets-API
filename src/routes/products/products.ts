@@ -1,8 +1,10 @@
-require(global.__rootDir + '/models/products')
-const router = require('express').Router()
-const bodyParser = require('body-parser')
-const controllers = require(global.__rootDir + '/controllers/products/product_controllers')
+// require(global.__rootDir + '/models/products')
+import 'Src/models/products'
+import express from 'express'
+import bodyParser from 'body-parser'
+import controllers from 'Src/controllers/products/product_controllers'
 
+const router = express.Router()
 // Get all the products with a matching name from a URI query
 router.get('/', controllers.findByName)
 
@@ -30,4 +32,4 @@ router.delete('/:store/:category', controllers.deleteByStoreAndCategory)
 // Backup Collection to a JSON file
 router.get('/backup', controllers.backup)
 
-module.exports = router
+export default router

@@ -1,7 +1,8 @@
-const mongoose = require('mongoose')
+import { Request, Response } from 'express'
+import mongoose from 'mongoose'
 const Product = mongoose.model('Product')
 
-exports.save = async function(req, res) {
+export default async function(req: Request, res: Response) {
   try {
     const { product } = req.body
     const newProduct = new Product({ ...product, date: new Date() })

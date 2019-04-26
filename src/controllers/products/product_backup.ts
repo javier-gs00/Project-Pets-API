@@ -1,9 +1,11 @@
-const mongoose = require('mongoose')
-const Product = mongoose.model('Product')
+import { Request, Response } from 'express'
+import { backupCollection } from 'Src/models/products'
 
-exports.backup = function(req, res) {
-  Product.backupCollection((err, msg) => {
-    if (err) return res.status(500).json({ err: 'Backup failed...' })
-    return res.status(200).json({ msg: msg })
-  })
+export default async function(req: Request, res: Response) {
+  try {
+    const msg = await backupCollection()
+    return res.status(200).json({ msg })
+  } catch(err) {
+    return res.status(500).json({ err: 'Backup failed...' })
+  }
 }

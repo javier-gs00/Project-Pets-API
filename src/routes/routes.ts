@@ -1,8 +1,10 @@
-const router = require('express').Router()
-const product = require('./products/products')
-const store = require('./stores/stores')
+import express from 'express'
+import product from './products/products'
+import store from './stores/stores'
+
+const router = express.Router()
 
 router.use('/product', product)
 router.use('/store', store)
 
-module.exports = router
+export default router

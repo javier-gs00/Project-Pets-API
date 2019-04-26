@@ -1,10 +1,10 @@
-require('dotenv').config()
-global.__rootDir = __dirname
-const express = require('express')
-const mongoose = require('mongoose')
-const cors = require('cors')
-const morgan = require('morgan')
-const routes = require('./routes/routes')
+import dotenv from 'dotenv'
+dotenv.config()
+import express, { ErrorRequestHandler, Request, Response, NextFunction } from 'express'
+import mongoose from 'mongoose'
+import cors from 'cors'
+import morgan from 'morgan'
+import routes from './routes/routes'
 
 const app = express()
 
@@ -31,9 +31,9 @@ app.use(
 
 app.use('/api', routes)
 
-app.use((err, req, res, next) => {
+app.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => {
 	console.log(err)
-	res.status(500).send(err.response || 'Something broke :(...')
+	res.status(500).send(err || 'Something broke :(...')
 })
 
 if (process.env.NODE_ENV !== 'test') {
