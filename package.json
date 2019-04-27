@@ -1,12 +1,12 @@
 {
   "name": "bazardemascotas",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "API for project-pets-client",
   "main": "server.js",
   "author": "javier gutierrez",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js",
+    "start": "yarn start:dev",
     "start:dev": "./node_modules/nodemon/bin/nodemon.js --exec babel-node src/app.ts --extensions '.ts'",
     "start:prod": "node dist/app.js",
     "build": "rm -rf dist && yarn build:js",
