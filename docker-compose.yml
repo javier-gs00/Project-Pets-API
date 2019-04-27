@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  project-pets:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - '8000:8000'
+    command: node app/dist/index.js
+    restart: always
