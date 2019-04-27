@@ -1,12 +1,14 @@
 version: '3'
 
 services:
-  express_app_dev:
+  project-pets-dev:
     build:
       dockerfile: Dockerfile-dev
       context: .
     volumes:
       - "./src:/app/src"
+    env_file:
+      - .env
     ports:
       - '8000:8000'
     command: yarn start:dev

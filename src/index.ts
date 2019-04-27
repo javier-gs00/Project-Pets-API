@@ -17,7 +17,7 @@ mongoose.connect(dbUrl, { useNewUrlParser: true }, function(err) {
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'db connection error: '))
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 8000
 
 app.use(cors())
 
