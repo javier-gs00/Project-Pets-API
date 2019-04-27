@@ -7,8 +7,8 @@
   "license": "MIT",
   "scripts": {
     "start": "yarn start:dev",
-    "start:dev": "./node_modules/nodemon/bin/nodemon.js --exec babel-node src/app.ts --extensions '.ts'",
-    "start:prod": "node dist/app.js",
+    "start:dev": "./node_modules/nodemon/bin/nodemon.js --exec babel-node src/index.ts --extensions '.ts'",
+    "start:prod": "node dist/index.js",
     "build": "rm -rf dist && yarn build:js",
     "build:js": "babel src --out-dir dist --extensions \".ts\" --ignore \"src/**/*.test.ts\",\"src/**/*.test.js\" --source-maps inline",
     "test": "jest --watch --coverage",

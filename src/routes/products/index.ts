@@ -2,7 +2,7 @@
 import 'Src/models/products'
 import express from 'express'
 import bodyParser from 'body-parser'
-import controllers from 'Src/controllers/products/product_controllers'
+import controllers from 'Src/controllers/products'
 
 const router = express.Router()
 // Get all the products with a matching name from a URI query

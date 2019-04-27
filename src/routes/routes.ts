@@ -1,6 +1,6 @@
 import express from 'express'
-import product from './products/products'
-import store from './stores/stores'
+import product from './products'
+import store from './stores'
 
 const router = express.Router()
 
