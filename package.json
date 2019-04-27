@@ -1,6 +1,6 @@
 {
   "name": "bazardemascotas",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "API for project-pets-client",
   "main": "server.js",
   "author": "javier gutierrez",
@@ -9,6 +9,8 @@
     "start": "yarn start:dev",
     "start:dev": "./node_modules/nodemon/bin/nodemon.js --exec babel-node src/index.ts --extensions '.ts'",
     "start:prod": "node dist/index.js",
+    "start:docker-dev": "docker-compose -f docker-compose.dev.yml up --build",
+    "start:docker-prod": "docker-compose up --build",
     "build": "rm -rf dist && yarn build:js",
     "build:js": "babel src --out-dir dist --extensions \".ts\" --ignore \"src/**/*.test.ts\",\"src/**/*.test.js\" --source-maps inline",
     "test": "jest --watch --coverage",
