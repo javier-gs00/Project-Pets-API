@@ -14,7 +14,8 @@ module.exports = function(api) {
 						Src: './src'
 					}
 				}
-			]
+			],
+			['@babel/plugin-transform-runtime']
 		],
 		env: {
 			test: {

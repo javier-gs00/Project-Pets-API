@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node server.js",
     "start:dev": "./node_modules/nodemon/bin/nodemon.js --exec babel-node src/app.ts --extensions '.ts'",
-    "start:prod": "node dist/index.js",
+    "start:prod": "node dist/app.js",
     "build": "rm -rf dist && yarn build:js",
     "build:js": "babel src --out-dir dist --extensions \".ts\" --ignore \"src/**/*.test.ts\",\"src/**/*.test.js\" --source-maps inline",
     "test": "jest --watch --coverage",
@@ -16,6 +16,7 @@
     "type-check:watch": "yarn type-check -- --watch"
   },
   "dependencies": {
+    "@babel/runtime": "^7.4.4",
     "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
@@ -35,6 +36,7 @@
     "@babel/core": "^7.4.3",
     "@babel/node": "^7.2.2",
     "@babel/plugin-transform-modules-commonjs": "^7.4.3",
+    "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-typescript": "^7.3.3",
