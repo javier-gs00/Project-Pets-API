@@ -29,6 +29,7 @@ app.use(
 	)
 )
 
+app.get('/', (req: Request, res: Response) => res.status(200).send('Project Pets API'))
 app.use('/api', routes)
 
 app.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => {
