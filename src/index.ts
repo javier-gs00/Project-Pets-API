@@ -4,7 +4,7 @@ import express, { ErrorRequestHandler, Request, Response, NextFunction } from 'e
 import mongoose from 'mongoose'
 import cors from 'cors'
 import morgan from 'morgan'
-import routes from './routes/routes'
+import routes from './routes'
 
 const app = express()
 
@@ -29,8 +29,7 @@ app.use(
 	)
 )
 
-app.get('/', (req: Request, res: Response) => res.status(200).send('Project Pets API'))
-app.use('/api', routes)
+app.use('/', routes)
 
 app.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => {
 	console.log(err)
