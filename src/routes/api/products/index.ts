@@ -1,5 +1,5 @@
 // require(global.__rootDir + '/models/products')
-import 'Src/models/products'
+import 'Src/models/product.model'
 import express from 'express'
 import bodyParser from 'body-parser'
 import controllers from 'Src/controllers/products'

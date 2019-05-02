@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 const StoreSchema = new Schema({
   name: { type: String, require: true },
@@ -36,7 +36,9 @@ const StoreSchema = new Schema({
   veterinary: { type: Boolean, require: true, default: false },
   urgency: { type: Boolean, require: true, default: false },
   physical_store: { type: Boolean, require: true, default: false },
-  product_shipping: { type: Boolean, require: true, default: false }
+  product_shipping: { type: Boolean, require: true, default: false },
+  image_file_name: { type: String },
+  image_url: { type: String }
 })
 
-mongoose.model('Store', StoreSchema)
+export default mongoose.model('Store', StoreSchema)

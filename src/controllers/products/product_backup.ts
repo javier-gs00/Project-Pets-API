@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { backupCollection } from 'Src/models/products'
+import { backupCollection } from 'Src/models/product.model'
 
 export default async function(req: Request, res: Response) {
   try {
