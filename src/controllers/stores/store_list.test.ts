@@ -4,7 +4,7 @@ import App from 'Src/app'
 
 jest.mock('Src/models/store.model')
 
-describe('Store List Controller', () => {
+describe('Store List Controller - GET:/api/store', () => {
   let app: Express
 
   beforeAll(async() => {
@@ -15,7 +15,7 @@ describe('Store List Controller', () => {
     process.env.FORCE_TEST_FAILS = 'false'
   })
 
-  test('GET:/api/store => Should return a list with 1 store ', async() => {
+  test('Should return a list with 1 store ', async() => {
     const response: Response = await request(app).get('/api/store')
     expect(response.status).toBe(200)
     expect(response.body).toHaveLength(1)
@@ -28,7 +28,7 @@ describe('Store List Controller', () => {
     )
   })
 
-  test('GET:/api/store => Should fail and return an error message', async() => {
+  test('Should fail and return an error message', async() => {
     process.env.FORCE_TEST_FAILS = 'true'
     const response: Response = await request(app).get('/api/store')
     expect(response.status).toBe(500)
