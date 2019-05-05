@@ -39,3 +39,16 @@ export interface StoreOpenHours {
   open: string
   close: string
 }
+
+export interface Product {
+  _id: string
+  __v: number
+  name: string
+  price: number
+  url: string
+  imageUrl: string
+  category: string
+  animal: string
+  store: string
+  date: Date
+}

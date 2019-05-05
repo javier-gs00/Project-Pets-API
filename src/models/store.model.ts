@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
+
 const Schema = mongoose.Schema
+
 const StoreSchema = new Schema({
   name: { type: String, require: true },
   url: { type: String, require: true },
