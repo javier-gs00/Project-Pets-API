@@ -48,5 +48,11 @@ export default {
       if (process.env.FORCE_TEST_FAILS === 'true') reject('StoreModel find method mocked message')
       resolve([testStore])
     })
+  },
+  findOne: () => {
+    return new Promise((resolve, reject) => {
+      if (process.env.FORCE_TEST_FAILS === 'true') reject('StoreModel findOne method mocked message')
+      resolve(testStore)
+    })
   }
 }
