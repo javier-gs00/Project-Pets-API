@@ -78,4 +78,4 @@ function getDate(): string {
   return today
 }
 
-mongoose.model('Product', ProductSchema)
+export default mongoose.model('Product', ProductSchema)
