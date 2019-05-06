@@ -6,6 +6,6 @@ export default async function(req: Request, res: Response) {
     await Product.deleteOne(req.params.id)
     return res.status(200).json({ success: true })
   } catch (err) {
-    return res.send(500).json({ error: true })
+    return res.status(500).json({ error: true })
   } 
 }

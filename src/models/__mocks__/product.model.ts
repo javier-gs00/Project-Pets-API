@@ -38,12 +38,6 @@ export default {
       resolve()
     })
   },
-  save: () => {
-    return new Promise((resolve, reject) => {
-      if (process.env.FORCE_TEST_FAILS === 'true') reject('ProductModel save method mocked message')
-      resolve(testProduct)
-    })
-  },
   findOneAndUpdate: () => {
     return new Promise((resolve, reject) => {
       if (process.env.FORCE_TEST_FAILS === 'true') reject('ProductModel findOneAndUpdate method mocked message')

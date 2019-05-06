@@ -2,9 +2,9 @@ import { Express } from 'express'
 import request, { Response } from 'supertest'
 import App from 'Src/app'
 
-jest.mock('Src/models/store.model')
+jest.mock('Src/models/product.model')
 
-describe('Store Detail Controller - GET:/api/store/:name', () => {
+describe('Product Find By Name Controller - GET:/api/product?query=name', () => {
   let app: Express
 
   beforeAll(async() => {
@@ -15,19 +15,21 @@ describe('Store Detail Controller - GET:/api/store/:name', () => {
     process.env.FORCE_TEST_FAILS = 'false'
   })
 
-  test('Should return the complete data of a store', async() => {
-    const response: Response = await request(app).get('/api/store/Pet%20Happy')
+  test('Should return products whose name contains "royal canin"', async() => {
+    const response: Response = await request(app).get('/api/product?query=royal%20canin')
     expect(response.status).toBe(200)
     expect(response.body).toEqual(
-      expect.objectContaining({
-        _id: '5a40022fb0091572150c5baa'
-      })
+      expect.arrayContaining([
+        expect.objectContaining({
+          name: 'royal canin maxi adulto 5 15 kg.'
+        })
+      ])
     )
   })
 
   test('Should fail and return an error message', async() => {
     process.env.FORCE_TEST_FAILS = 'true'
-    const response: Response = await request(app).get('/api/store/Pet%20Happy')
+    const response: Response = await request(app).get('/api/product?query=royal%20canin')
     expect(response.status).toBe(500)
     expect(response.body).toEqual(
       expect.objectContaining({
