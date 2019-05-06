@@ -1,4 +1,4 @@
-import 'Src/models/stores'
+import 'Src/models/store.model'
 import express from 'express'
 import controllers from 'Src/controllers/stores'
 

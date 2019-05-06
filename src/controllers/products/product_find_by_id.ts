@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
-import mongoose from 'mongoose'
-const Product = mongoose.model('Product')
+import Product from 'Src/models/product.model'
 
 export default async function(req: Request, res: Response) {
   try {

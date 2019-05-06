@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import Promise from 'bluebird'
 
 const Schema = mongoose.Schema
+
 const ProductSchema = new Schema({
   name: String,
   price: Number,
@@ -77,4 +78,4 @@ function getDate(): string {
   return today
 }
 
-mongoose.model('Product', ProductSchema)
+export default mongoose.model('Product', ProductSchema)

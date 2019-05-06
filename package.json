@@ -13,7 +13,7 @@
     "start:docker-prod": "docker-compose up --build",
     "build": "rm -rf dist && yarn build:js",
     "build:js": "babel src --out-dir dist --extensions \".ts\" --ignore \"src/**/*.test.ts\",\"src/**/*.test.js\" --source-maps inline",
-    "test": "jest --watch --coverage",
+    "test": "jest --watchAll --coverage",
     "type-check": "./node_modules/typescript/bin/tsc --noEmit",
     "type-check:watch": "yarn type-check -- --watch"
   },
